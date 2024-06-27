@@ -2,6 +2,7 @@ package org.jfinance;
 
 import org.jfinance.chart.model.Chart;
 import org.jfinance.chart.service.ChartService;
+import org.jfinance.chart.utils.TimestampConverter;
 
 import java.io.IOException;
 

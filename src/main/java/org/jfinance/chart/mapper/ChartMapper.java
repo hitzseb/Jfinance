@@ -11,7 +11,7 @@ import java.util.List;
 public class ChartMapper {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static Chart fromJson(String jsonStr) throws IOException {
+    public static Chart buildChartfromJson(String jsonStr) throws IOException {
         JsonNode rootNode = objectMapper.readTree(jsonStr);
         JsonNode resultNode = rootNode.at("/chart/result/0");
 

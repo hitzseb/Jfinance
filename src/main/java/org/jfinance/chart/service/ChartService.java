@@ -46,8 +46,8 @@ public class ChartService {
             interval = "1d";  // default interval value
         }
 
-        long period1Timestamp = TimestampConverter.convertDateToTimestamp(period1);
-        long period2Timestamp = TimestampConverter.convertDateToTimestamp(period2);
+        long period1Timestamp = TimestampConverter.convertDateToTimestamp(period1, "America/New_York");
+        long period2Timestamp = TimestampConverter.convertDateToTimestamp(period2, "America/New_York");
 
         HttpRequest request = buildRequest(symbol, interval, period1Timestamp, period2Timestamp);
 
@@ -73,9 +73,9 @@ public class ChartService {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
-                return ChartMapper.fromJson(response.body());
+                return ChartMapper.buildChartfromJson(response.body());
             } else {
-                System.out.println("Error al obtener los datos. Código de estado: " + response.statusCode());
+                System.out.println("Error obtaining data. Status code: " + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
