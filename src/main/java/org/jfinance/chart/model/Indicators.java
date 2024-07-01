@@ -9,11 +9,6 @@ public class Indicators {
     public Indicators() {
     }
 
-    public Indicators(List<Quote> quote, List<AdjClose> adjclose) {
-        this.quote = quote;
-        this.adjclose = adjclose;
-    }
-
     public List<Quote> getQuote() {
         return quote;
     }
@@ -28,13 +23,5 @@ public class Indicators {
 
     public void setAdjclose(List<AdjClose> adjclose) {
         this.adjclose = adjclose;
-    }
-
-    @Override
-    public String toString() {
-        return "Indicators{" +
-                "quote=" + quote +
-                ", adjclose=" + adjclose +
-                '}';
     }
 }

@@ -23,14 +23,10 @@ class ChartMapperTest {
             // Assert meta fields
             assertEquals("USD", meta.getCurrency());
             assertEquals("AAPL", meta.getSymbol());
-            assertEquals("NMS", meta.getExchangeName());
             assertEquals("NasdaqGS", meta.getFullExchangeName());
             assertEquals("EQUITY", meta.getInstrumentType());
-            assertEquals("EDT", meta.getTimezone());
             assertEquals("America/New_York", meta.getExchangeTimezoneName());
             assertEquals(208.14, meta.getRegularMarketPrice());
-            assertEquals(212.7, meta.getFiftyTwoWeekHigh());
-            assertEquals(206.59, meta.getFiftyTwoWeekLow());
             assertEquals(212.7, meta.getRegularMarketDayHigh());
             assertEquals(206.59, meta.getRegularMarketDayLow());
             assertEquals(78306092L, meta.getRegularMarketVolume());

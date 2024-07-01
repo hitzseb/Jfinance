@@ -1,4 +1,4 @@
-package org.jfinance.chart.utils;
+package org.jfinance.utils;
 
 import java.time.Instant;
 import java.time.LocalDate;

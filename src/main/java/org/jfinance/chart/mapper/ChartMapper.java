@@ -3,6 +3,7 @@ package org.jfinance.chart.mapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jfinance.chart.model.*;
+import org.jfinance.utils.JsonConverter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,14 +21,10 @@ public class ChartMapper {
         Meta meta = new Meta();
         meta.setCurrency(metaNode.get("currency").asText());
         meta.setSymbol(metaNode.get("symbol").asText());
-        meta.setExchangeName(metaNode.get("exchangeName").asText());
         meta.setFullExchangeName(metaNode.get("fullExchangeName").asText());
         meta.setInstrumentType(metaNode.get("instrumentType").asText());
-        meta.setTimezone(metaNode.get("timezone").asText());
         meta.setExchangeTimezoneName(metaNode.get("exchangeTimezoneName").asText());
         meta.setRegularMarketPrice(metaNode.get("regularMarketPrice").asDouble());
-        meta.setFiftyTwoWeekHigh(metaNode.get("fiftyTwoWeekHigh").asDouble());
-        meta.setFiftyTwoWeekLow(metaNode.get("fiftyTwoWeekLow").asDouble());
         meta.setRegularMarketDayHigh(metaNode.get("regularMarketDayHigh").asDouble());
         meta.setRegularMarketDayLow(metaNode.get("regularMarketDayLow").asDouble());
         meta.setRegularMarketVolume(metaNode.get("regularMarketVolume").asLong());
@@ -47,11 +44,11 @@ public class ChartMapper {
         List<Quote> quotes = new ArrayList<>();
         JsonNode quoteNode = indicatorsNode.at("/quote/0");
         Quote quote = new Quote();
-        quote.setHigh(convertJsonNodeToList(quoteNode.get("high")));
-        quote.setClose(convertJsonNodeToList(quoteNode.get("close")));
-        quote.setVolume(convertJsonNodeToListLong(quoteNode.get("volume")));
-        quote.setOpen(convertJsonNodeToList(quoteNode.get("open")));
-        quote.setLow(convertJsonNodeToList(quoteNode.get("low")));
+        quote.setHigh(JsonConverter.convertJsonNodeToList(quoteNode.get("high")));
+        quote.setClose(JsonConverter.convertJsonNodeToList(quoteNode.get("close")));
+        quote.setVolume(JsonConverter.convertJsonNodeToListLong(quoteNode.get("volume")));
+        quote.setOpen(JsonConverter.convertJsonNodeToList(quoteNode.get("open")));
+        quote.setLow(JsonConverter.convertJsonNodeToList(quoteNode.get("low")));
         quotes.add(quote);
         indicators.setQuote(quotes);
 
@@ -59,28 +56,12 @@ public class ChartMapper {
         List<AdjClose> adjCloses = new ArrayList<>();
         JsonNode adjCloseNode = indicatorsNode.at("/adjclose/0");
         AdjClose adjClose = new AdjClose();
-        adjClose.setAdjclose(convertJsonNodeToList(adjCloseNode.get("adjclose")));
+        adjClose.setAdjclose(JsonConverter.convertJsonNodeToList(adjCloseNode.get("adjclose")));
         adjCloses.add(adjClose);
         indicators.setAdjclose(adjCloses);
 
         // Building Chart
         Chart chart = new Chart(meta, timestampList, indicators);
         return chart;
-    }
-
-    private static List<Double> convertJsonNodeToList(JsonNode node) {
-        List<Double> list = new ArrayList<>();
-        for (JsonNode n : node) {
-            list.add(n.asDouble());
-        }
-        return list;
-    }
-
-    private static List<Long> convertJsonNodeToListLong(JsonNode node) {
-        List<Long> list = new ArrayList<>();
-        for (JsonNode n : node) {
-            list.add(n.asLong());
-        }
-        return list;
     }
 }

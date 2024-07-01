@@ -8,22 +8,11 @@ public class AdjClose {
     public AdjClose() {
     }
 
-    public AdjClose(List<Double> adjclose) {
-        this.adjclose = adjclose;
-    }
-
     public List<Double> getAdjclose() {
         return adjclose;
     }
 
     public void setAdjclose(List<Double> adjclose) {
         this.adjclose = adjclose;
-    }
-
-    @Override
-    public String toString() {
-        return "AdjClose{" +
-                "adjclose=" + adjclose +
-                '}';
     }
 }

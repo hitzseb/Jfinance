@@ -1,14 +1,12 @@
 package org.jfinance.chart.service;
 
 import org.jfinance.chart.model.Chart;
-import org.jfinance.chart.mapper.ChartMapper;
-import org.jfinance.chart.utils.TimestampConverter;
+import org.jfinance.utils.RequestSender;
+import org.jfinance.utils.TimestampConverter;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +26,7 @@ public class ChartService {
     // Base URL for HTTP request
     private static final String BASE_URL = "https://query1.finance.yahoo.com/v8/finance/chart/";
 
+
     public static Chart getChart(String symbol, String interval, String range) throws IOException, InterruptedException {
         if (interval == null || interval.isEmpty() || !VALID_INTERVALS.contains(interval)) {
             interval = "1d";  // default interval value
@@ -38,7 +37,7 @@ public class ChartService {
 
         HttpRequest request = buildRequest(symbol, interval, range);
 
-        return sendRequest(request);
+        return RequestSender.sendChartRequest(request);
     }
 
     public static Chart getChart(String symbol, String interval, String period1, String period2) throws IOException, InterruptedException {
@@ -51,7 +50,7 @@ public class ChartService {
 
         HttpRequest request = buildRequest(symbol, interval, period1Timestamp, period2Timestamp);
 
-        return sendRequest(request);
+        return RequestSender.sendChartRequest(request);
     }
 
     private static HttpRequest buildRequest(String symbol, String interval, String range) {
@@ -64,22 +63,5 @@ public class ChartService {
         return HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + symbol + "?interval=" + interval + "&period1=" + period1 + "&period2=" + period2))
                 .build();
-    }
-
-    private static Chart sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == 200) {
-                return ChartMapper.buildChartfromJson(response.body());
-            } else {
-                System.out.println("Error obtaining data. Status code: " + response.statusCode());
-            }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

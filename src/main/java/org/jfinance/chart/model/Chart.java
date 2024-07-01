@@ -1,6 +1,6 @@
 package org.jfinance.chart.model;
 
-import org.jfinance.chart.utils.TablePrinter;
+import org.jfinance.utils.TablePrinter;
 
 import java.util.List;
 
@@ -40,15 +40,6 @@ public class Chart {
 
     public void setIndicators(Indicators indicators) {
         this.indicators = indicators;
-    }
-
-    @Override
-    public String toString() {
-        return "Chart{" +
-                "meta=" + meta +
-                ", timestamp=" + timestamp +
-                ", indicators=" + indicators +
-                '}';
     }
 
     public void printTable() {

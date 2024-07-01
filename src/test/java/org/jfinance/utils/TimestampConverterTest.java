@@ -1,5 +1,6 @@
-package org.jfinance.chart.utils;
+package org.jfinance.utils;
 
+import org.jfinance.utils.TimestampConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

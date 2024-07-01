@@ -12,14 +12,6 @@ public class Quote {
     public Quote() {
     }
 
-    public Quote(List<Double> low, List<Long> volume, List<Double> open, List<Double> high, List<Double> close) {
-        this.low = low;
-        this.volume = volume;
-        this.open = open;
-        this.high = high;
-        this.close = close;
-    }
-
     public List<Double> getLow() {
         return low;
     }
@@ -58,16 +50,5 @@ public class Quote {
 
     public void setClose(List<Double> close) {
         this.close = close;
-    }
-
-    @Override
-    public String toString() {
-        return "Quote{" +
-                "low=" + low +
-                ", volume=" + volume +
-                ", open=" + open +
-                ", high=" + high +
-                ", close=" + close +
-                '}';
     }
 }
