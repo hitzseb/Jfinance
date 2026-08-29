@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  */
 public class ChartService {
 
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+
     /**
      * List of valid intervals for chart queries.
      */
@@ -282,6 +284,8 @@ public class ChartService {
     private static HttpRequest buildRequest(String symbol, String interval, String range) {
         return HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + symbol + "?interval=" + interval + "&range=" + range))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "*/*")
                 .build();
     }
 
@@ -297,6 +301,8 @@ public class ChartService {
     private static HttpRequest buildRequest(String symbol, String interval, long period1, long period2) {
         return HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + symbol + "?interval=" + interval + "&period1=" + period1 + "&period2=" + period2))
+                .header("User-Agent", USER_AGENT)
+                .header("Accept", "*/*")
                 .build();
     }
 

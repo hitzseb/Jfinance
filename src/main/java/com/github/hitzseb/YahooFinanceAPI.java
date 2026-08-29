@@ -1,15 +1,11 @@
 package com.github.hitzseb;
 
 import com.github.hitzseb.model.Chart;
-import com.github.hitzseb.model.Stock;
 import com.github.hitzseb.service.ChartService;
-import com.github.hitzseb.service.StockService;
 import com.github.hitzseb.service.TableBuilder;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -17,31 +13,6 @@ import java.util.concurrent.CompletableFuture;
  * This class offers methods to retrieve chart and stock data.
  */
 public class YahooFinanceAPI {
-
-    /**
-     * Retrieves stock data based on the provided stock symbol.
-     *
-     * @param symbol the stock symbol
-     * @return a Stock object containing the stock data
-     * @throws IOException if an I/O exception occurs
-     * @throws InterruptedException if the operation is interrupted
-     */
-    public static Stock getStock(String symbol) throws IOException, InterruptedException {
-        return StockService.getStock(symbol);
-    }
-
-    /**
-     * Retrieves a list of stocks based on the provided list of symbols.
-     * This method fetches the stock data concurrently for each symbol using
-     * {@link CompletableFuture} to improve performance.
-     *
-     * @param symbols a list of stock symbols to fetch data for (e.g., "AAPL", "MSFT", "GOOGL")
-     * @return a list of {@link Stock} objects containing the stock data
-     * @throws RuntimeException if an I/O exception or interruption occurs during data retrieval
-     */
-    public static List<Stock> getStocks(List<String> symbols) {
-        return StockService.getStocks(symbols);
-    }
 
     /**
      * Retrieves chart data based on the provided symbol, interval, and specific time periods.

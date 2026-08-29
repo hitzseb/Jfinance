@@ -1,13 +1,15 @@
 package com.github.hitzseb;
 
 import com.github.hitzseb.model.Chart;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChartServiceTest {
+@Tag("integration")
+class ChartServiceIntegrationTest {
 
     @Test
     void testGetChartWithRange() throws IOException, InterruptedException {
@@ -33,19 +35,15 @@ class ChartServiceTest {
     }
 
     private static void assertChartItems(Chart chart) {
-        // Asserts that chart is not null and has valid meta, timestamps and indicators
         assertNotNull(chart);
         assertNotNull(chart.getTimestamp());
         assertNotNull(chart.getIndicators());
 
-        // Asserts that timestamps and indicators are not empty
         assertFalse(chart.getTimestamp().isEmpty());
         assertFalse(chart.getIndicators().getQuote().isEmpty());
         assertFalse(chart.getIndicators().getAdjclose().isEmpty());
 
-        // Asserts that some meta elements values are what we expect
         assertEquals("AAPL", chart.getSymbol());
         assertEquals("America/New_York", chart.getExchangeTimezoneName());
     }
-
 }

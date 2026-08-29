@@ -18,8 +18,14 @@ public class JsonConverter {
      */
     public static List<Double> convertJsonNodeToList(JsonNode node) {
         List<Double> list = new ArrayList<>();
-        for (JsonNode n : node) {
-            list.add(n.asDouble());
+        if (node != null && node.isArray()) {
+            for (JsonNode n : node) {
+                if (n.isNull()) {
+                    list.add(null);
+                } else {
+                    list.add(n.asDouble());
+                }
+            }
         }
         return list;
     }
@@ -32,8 +38,14 @@ public class JsonConverter {
      */
     public static List<Long> convertJsonNodeToListLong(JsonNode node) {
         List<Long> list = new ArrayList<>();
-        for (JsonNode n : node) {
-            list.add(n.asLong());
+        if (node != null && node.isArray()) {
+            for (JsonNode n : node) {
+                if (n.isNull()) {
+                    list.add(null);
+                } else {
+                    list.add(n.asLong());
+                }
+            }
         }
         return list;
     }

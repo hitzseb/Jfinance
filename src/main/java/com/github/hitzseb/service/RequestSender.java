@@ -2,8 +2,6 @@ package com.github.hitzseb.service;
 
 import com.github.hitzseb.mapper.ChartMapper;
 import com.github.hitzseb.model.Chart;
-import com.github.hitzseb.mapper.StockMapper;
-import com.github.hitzseb.model.Stock;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
@@ -70,20 +68,6 @@ public class RequestSender {
             return ChartMapper.buildChartFromJson(response.body(), format, timezone);
         }
         return null;
-    }
-
-    /**
-     * Sends a request to obtain stock data for a given symbol by scraping data from Yahoo Finance.
-     * This method does not perform an HTTP request but instead scrapes data using Jsoup, as the
-     * required data is no longer available through the public API.
-     *
-     * @param symbol the stock symbol to fetch data for (e.g., "AAPL" for Apple Inc.)
-     * @return a Stock object containing the scraped data, or null if the data could not be obtained
-     * @throws IOException if an I/O exception occurs during the scraping process
-     */ static Stock sendStockRequest(String symbol) throws IOException {
-         String quoteSummary = DataScrapper.getQuote(symbol).get("quoteSummary");
-         String fundamentalsTimeseries = DataScrapper.getQuote(symbol).get("fundamentalsTimeseries");
-         return StockMapper.buildStockFromJson(quoteSummary, fundamentalsTimeseries);
     }
 
 }
